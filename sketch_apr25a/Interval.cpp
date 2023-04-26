@@ -7,12 +7,12 @@ Interval::Interval(int wantedSampleRate) {
   isRunning = true;
 }
 
-void Interval::run(){
+void Interval::run() {
   throw std::invalid_argument("Please Overide this functions");
 }
 
 void Interval::update() {
-  if(millis() - lastCycle > sampleRate){
+  if (millis() - lastCycle > sampleRate) {
     run();
     frameCount++;
     lastCycle = millis();
