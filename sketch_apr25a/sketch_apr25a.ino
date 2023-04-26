@@ -1,4 +1,9 @@
 #include "interval.h"
+#include <WiFi.h>
+
+const char* SSID = "connor and miles are the best coders in the world!";
+const char* PASSWORD = "123";
+
 const int output26 = 26;
 const int output27 = 27;
 
@@ -24,9 +29,6 @@ Interval fire(700, run);
 Interval beep(300, beepSpeaker);
 
 
-// Interval fire(1000);
-
-
 void setup() {
   Serial.begin(115200);
 
@@ -35,6 +37,8 @@ void setup() {
 
   digitalWrite(output26, pin26State);
   digitalWrite(output27, pin27State);
+
+  WiFi.softAP(SSID, PASSWORD);
 }
 
 void loop() {
