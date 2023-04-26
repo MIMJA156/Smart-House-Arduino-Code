@@ -9,7 +9,7 @@ const int output27 = 27;
 
 bool pin26State = false;
 bool pin27State = true;
-bool highLowTone = false;//false low true high
+bool highLowTone = false;  //false low true high
 
 void run() {
   pin26State = !pin26State;
@@ -19,7 +19,7 @@ void run() {
   digitalWrite(output27, pin27State ? HIGH : LOW);
 }
 
-void beepSpeaker(){
+void beepSpeaker() {
   highLowTone = !highLowTone;
   int frequency = highLowTone ? 2400 : 500;
   tone(25, frequency, 0.9);

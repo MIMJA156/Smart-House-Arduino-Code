@@ -8,10 +8,10 @@ private:
   int lastCycle;
   int frameCount;
   bool isRunning;
-  void(*callback)();
+  void (*callback)();
 
 public:
-  Interval(int wantedSampleRate, void(*callback)());
+  Interval(int wantedSampleRate, void (*callback)());
   void update();
   void setIsRunning(bool newRunning);
   int getFrameCount();

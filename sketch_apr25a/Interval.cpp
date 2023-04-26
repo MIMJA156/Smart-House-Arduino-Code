@@ -2,7 +2,7 @@
 #include "Interval.h"
 #include <Arduino.h>
 
-Interval::Interval(int wantedSampleRate, void(*passedCallback)()) {
+Interval::Interval(int wantedSampleRate, void (*passedCallback)()) {
   sampleRate = wantedSampleRate;
   lastCycle = millis();
   isRunning = true;
