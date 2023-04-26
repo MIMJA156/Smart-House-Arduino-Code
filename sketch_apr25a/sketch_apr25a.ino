@@ -1,17 +1,43 @@
-#include "Interval.h"
+#include "interval.h"
+const int output26 = 26;
+const int output27 = 27;
 
-class FireAllarm : public Interval {
-  using Interval::Interval;
-  void run(){
-    
-  }
-};
+bool pin26State = false;
+bool pin27State = true;
+bool highLowTone = false;//false low true high
 
-FireAllarm fire(1000);
+void run() {
+  pin26State = !pin26State;
+  pin27State = !pin27State;
+
+  digitalWrite(output26, pin26State ? HIGH : LOW);
+  digitalWrite(output27, pin27State ? HIGH : LOW);
+}
+
+void beepSpeaker(){
+  highLowTone = !highLowTone;
+  int frequency = highLowTone ? 2400 : 500;
+  tone(25, frequency, 0.9);
+}
+
+Interval fire(700, run);
+Interval beep(300, beepSpeaker);
+
+
+// Interval fire(1000);
+
 
 void setup() {
+  Serial.begin(115200);
+
+  pinMode(output26, OUTPUT);
+  pinMode(output27, OUTPUT);
+
+  digitalWrite(output26, pin26State);
+  digitalWrite(output27, pin27State);
 }
 
 void loop() {
   fire.update();
+  beep.update();
 }
