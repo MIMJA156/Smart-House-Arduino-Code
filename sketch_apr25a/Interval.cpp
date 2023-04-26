@@ -1,19 +1,17 @@
 #include "esp32-hal.h"
 #include "Interval.h"
+#include <Arduino.h>
 
-Interval::Interval(int wantedSampleRate) {
+Interval::Interval(int wantedSampleRate, void(*passedCallback)()) {
   sampleRate = wantedSampleRate;
   lastCycle = millis();
   isRunning = true;
-}
-
-void Interval::run() {
-  throw std::invalid_argument("Please Overide this functions");
+  callback = passedCallback;
 }
 
 void Interval::update() {
   if (millis() - lastCycle > sampleRate) {
-    run();
+    callback();
     frameCount++;
     lastCycle = millis();
   }

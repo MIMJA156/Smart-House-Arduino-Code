@@ -8,11 +8,11 @@ private:
   int lastCycle;
   int frameCount;
   bool isRunning;
+  void(*callback)();
 
 public:
-  Interval(int wantedSampleRate);
+  Interval(int wantedSampleRate, void(*callback)());
   void update();
-  void run();
   void setIsRunning(bool newRunning);
   int getFrameCount();
 };
