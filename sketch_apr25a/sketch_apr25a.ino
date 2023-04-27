@@ -11,22 +11,25 @@ bool pin26State = false;
 bool pin27State = true;
 bool highLowTone = false;  //false low true high
 
-void run() {
-  pin26State = !pin26State;
-  pin27State = !pin27State;
-
-  digitalWrite(output26, pin26State ? HIGH : LOW);
-  digitalWrite(output27, pin27State ? HIGH : LOW);
-}
-
 void beepSpeaker() {
   highLowTone = !highLowTone;
   int frequency = highLowTone ? 2400 : 500;
   tone(25, frequency, 0.9);
 }
 
-Interval fire(700, run);
-Interval beep(300, beepSpeaker);
+Interval fire(700, []() {
+  pin26State = !pin26State;
+  pin27State = !pin27State;
+
+  digitalWrite(output26, pin26State ? HIGH : LOW);
+  digitalWrite(output27, pin27State ? HIGH : LOW);
+});
+
+Interval beep(300, []() {
+  highLowTone = !highLowTone;
+  int frequency = highLowTone ? 2400 : 500;
+  tone(25, frequency, 0.9);
+});
 
 
 void setup() {
