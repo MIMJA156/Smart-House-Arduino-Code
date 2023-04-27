@@ -47,10 +47,11 @@ void WebServer::update(void (*handler)(String header)){
   }
 }
 
-void WebServer::get(String url, String header, void (*callback)()){
+void WebServer::get(String url, client, String header, String (*callback)(WiFiClient client)){
   String headerUrl = getUrl(header);
   if(headerUrl == url){
-    callback();
+    String res = callback();
+    client.println(res);
   }
 }
 
