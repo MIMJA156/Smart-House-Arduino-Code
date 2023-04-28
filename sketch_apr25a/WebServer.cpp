@@ -41,6 +41,7 @@ void WebServer::update() {
 
           String location = getUrl(header);
 
+          // std::function<void(WiFiClient)> correctCallback = callbackMap[location];
           if (callbackMap[location]) {
             callbackMap[location](client);
           }

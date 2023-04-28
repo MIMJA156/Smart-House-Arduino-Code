@@ -1,4 +1,3 @@
-#include "esp32-hal.h"
 #include "Interval.h"
 #include <Arduino.h>
 
