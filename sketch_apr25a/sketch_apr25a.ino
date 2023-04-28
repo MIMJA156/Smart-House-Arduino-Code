@@ -1,17 +1,31 @@
 #include "interval.h"
 #include "webServer.h"
+#include "pin.h"
 #include <WiFi.h>
 
 const char *SSID = "Conner-and-Miles";
 const char *PASSWORD = "123456789";
 
 WebServer server(80);
+Pin pin26(26, 0);
 
 void setup() {
   Serial.begin(115200);
 
-  server.get("/connor", [](WiFiClient client){
+  server.get("/", [](WiFiClient client) {
     client.println(getHtml());
+  });
+
+  server.get("/api/pin-26-on", [](WiFiClient client) {
+    pin26.on();
+  });
+
+  server.get("/api/pin-26-off", [](WiFiClient client) {
+    pin26.off();
+  });
+
+  server.get("/api/pin-26-toggle", [](WiFiClient client) {
+    pin26.toggle();
   });
 
   server.begin(SSID, PASSWORD);

@@ -1,25 +1,32 @@
 #include "Pin.h"
+#include <Arduino.h>
 
-void Pin::Pin(int givenPin, int beginningState){
+Pin::Pin(int givenPin, int beginningState) {
   pin = givenPin;
   state = beginningState;
-
+  digitalWrite(pin, state);
 }
 
-void Pin::setState(int givenState){
-  state = givenState;
-}
-
-int Pin::getState(){
+int Pin::getState() {
   return state;
 }
 
-void Pin::toggle(){
-  if(state == 0){
-    state = 1;
-  }else{
-    state = 0;
+void Pin::toggle() {
+  if (state == LOW) {
+    state = HIGH;
+  } else {
+    state = HIGH;
   }
 
+  digitalWrite(pin, state);
+}
+
+void Pin::on() {
+  state = 0x1;
+  digitalWrite(pin, state);
+}
+
+void Pin::off() {
+  state = 0x0;
   digitalWrite(pin, state);
 }
