@@ -2,20 +2,21 @@
 #define WebServer_h
 #include <WiFi.h>
 #include <map>
+#include <unordered_map>
 
 class WebServer {
 private:
   WiFiServer* server;
   IPAddress ip;
-  
+  std::unordered_map<char*, void (*&)()> callBackMap;
 
 public:
   WebServer(uint16_t port);
-  void begin(const char* ssid, const char* password);
   IPAddress getIp();
-  void update(void (*handler)(String handler));
-  void get(String url, String header, void (*callback)());
   String getUrl(String header);
+  void begin(const char* ssid, const char* password);
+  void update();
+  void get(char* location, void (*callback)());
 };
 
 #endif
