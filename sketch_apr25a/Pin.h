@@ -1,7 +1,8 @@
 #ifndef Pin_h
 #define Pin_h
 
-class Pin {
+class Pin
+{
 private:
   int state;
   int pin;

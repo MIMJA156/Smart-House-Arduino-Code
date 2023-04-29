@@ -1,12 +1,12 @@
-#include <functional>
 #ifndef WebServer_h
 #define WebServer_h
+
+#include <functional>
 #include <WiFi.h>
 #include <map>
-#include <unordered_map>
-#include <map>
 
-class WebServer {
+class WebServer
+{
 private:
   WiFiServer *server;
   IPAddress ip;
