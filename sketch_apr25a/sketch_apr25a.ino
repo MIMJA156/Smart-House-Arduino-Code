@@ -1,7 +1,7 @@
-#include "webServer.h"
-#include "interval.h"
+#include "WebServer.h"
+#include "Interval.h"
 #include <WiFi.h>
-#include "pin.h"
+#include "Pin.h"
 
 const char *SSID = "Conner-and-Miles";
 const char *PASSWORD = "123456789";
