@@ -1,7 +1,8 @@
 #ifndef Interval_h
 #define Interval_h
 
-class Interval {
+class Interval
+{
 private:
   int sampleRate;
   int lastCycle;

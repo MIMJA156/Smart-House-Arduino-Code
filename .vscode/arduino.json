@@ -1,0 +1,7 @@
+{
+    "board": "esp32:esp32:esp32",
+    "port": "COM1",
+    "sketch": "sketch_apr25a\\sketch_apr25a.ino",
+    "output": "./out/",
+    "programmer": "esptool"
+}

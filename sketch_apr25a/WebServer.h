@@ -1,21 +1,23 @@
 #ifndef WebServer_h
 #define WebServer_h
+
+#include <functional>
 #include <WiFi.h>
 #include <map>
 
-class WebServer {
+class WebServer
+{
 private:
-  WiFiServer* server;
+  WiFiServer *server;
   IPAddress ip;
-  
+  std::map<String, std::function<void(WiFiClient)>> callbackMap;
 
 public:
   WebServer(uint16_t port);
-  void begin(const char* ssid, const char* password);
   IPAddress getIp();
-  void update(void (*handler)(String handler));
-  void get(String url, String header, void (*callback)());
   String getUrl(String header);
+  void begin(const char *ssid, const char *password);
+  void listen();
+  void get(String location, void (*callback)(WiFiClient));
 };
-
 #endif

@@ -1,31 +1,54 @@
-#include "interval.h"
-#include "webServer.h"
+#include "WebServer.h"
+#include "Interval.h"
 #include <WiFi.h>
+#include "Pin.h"
 
-const char* SSID = "connor-and-miles";
-const char* PASSWORD = "123456789";
+const char *SSID = "Conner-and-Miles";
+const char *PASSWORD = "123456789";
 
 WebServer server(80);
 
+Pin pin26(26, LOW);
+Pin pin27(27, LOW);
+Pin pin25(25, LOW);
+Pin pin33(33, LOW);
+
+
 void setup() {
   Serial.begin(115200);
+
+  server.get("/", [](WiFiClient client) {
+    client.println(getHtml());
+  });
+
+  server.get("/api/26-toggle", [](WiFiClient client) {
+    pin26.toggle();
+    Serial.println(2);
+    client.println(pin26.getState() + "");
+  });
+
+  server.get("/api/27-toggle", [](WiFiClient client) {
+    pin27.toggle();
+    client.println(pin27.getState() + "");
+  });
+
+  server.get("/api/25-toggle", [](WiFiClient client) {
+    pin25.toggle();
+    client.println(pin25.getState() + "");
+  });
+
+  server.get("/api/33-toggle", [](WiFiClient client) {
+    pin33.toggle();
+    client.println(pin33.getState() + "");
+  });
 
   server.begin(SSID, PASSWORD);
 }
 
 void loop() {
-  server.update([](String header, WiFiClient client){
-    server.get("/", header, [](){
-      return "hello";
-    });
-
-    server.get("/api/", header, [](WiFiClient client){
-      Serial.println("api");
-      return "";
-    });
-  });
+  server.listen();
 }
 
 String getHtml(){
-return "<!DOCTYPE html><html><head><title>Arduino Control</title></head><body><style>html,body {height:100%;overflow-y:auto;}.main {width:100%;height:100%;padding:none;background:rgb(188, 210, 183);display:grid;grid-template-rows:auto(8,1fr);grid-template-columns: auto(1,1fr);}.head {grid-row:1/1;grid-column:1/1;border:2px solid rgb(86,190,149);margin:2px;text-align:center;font-size:400%;font-weight:bold;}.body {grid-row:2/8;grid-column:1/1;border:2px solid rgb(86,190,149);margin:2px;}.button-container {width:180px;height:180px;border:2px solid rgb(86, 190, 149);margin:10px;float:left;text-align:center;}.main-button {background:rgb(143,143,143);width:60%;height:30%;margin:12px;}.button-title {font-size:200%;}</style><div class=\"main\"><div class=\"head\">Arduino Controller</div><div class=\"body\"><div class=\"button-container\"><button class=\"main-button\" onclick=\"fetch('/api/26-toggle')\">toggle</button><p class=\"button-title\">pin 26</p></div><div class=\"button-container\"><button class=\"main-button\" onclick=\"fetch('/api/27-toggle')\">toggle</button><p class=\"button-title\">pin 27</p></div><div class=\"button-container\"><button class=\"main-button\" onclick=\"fetch('/api/fire-alarm')\">FIRE ALARM</button><p class=\"button-title\"></p></div></div></div></body></html>";
+return "<!DOCTYPE html><html><head><title>Arduino Control</title></head><body><style>html,body {height: 100%;overflow-y: auto;font-family: Arial;}button.main-button {border-radius: 10px;font-size: 30px;background-color: #03CC29;color: white;padding: 10px;margin: 10px;border-color: #02ad22;transition: 0.3s;}div.monitor {border-radius: 10px;font-size: 30px;background-color: #c4c4c4;color: white;padding: 10px;margin: 5px;transition: 0.3s;}button.main-button:hover {background-color: #0CD833;}h1 {text-align: center;font-size: 72px;}div.btn-body {display: flex;justify-content: center;align-items: center;border-radius: 30px;background-color: #f0f0f0;padding: 5px;margin: 10px;}p.monitor-head {font-size: 12px;line-height: 2px;}</style><div class=\"main\"><h1>Mini House Hub</h1><div class=\"btn-body\"><button class=\"main-button\" onclick=\"fetch('/api/25-toggle')\">Lights 25</button><button class=\"main-button\" onclick=\"fetch('/api/26-toggle')\">Lights 26</button><button class=\"main-button\" onclick=\"fetch('/api/27-toggle')\">Lights 27</button><button class=\"main-button\" onclick=\"fetch('/api/33-toggle')\">Lights 33</button></div></div></body></html>";
 }
