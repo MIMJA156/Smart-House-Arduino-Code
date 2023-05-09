@@ -22,7 +22,7 @@ IPAddress WebServer::getIp()
   return ip;
 };
 
-void WebServer::update()
+void WebServer::listen()
 {
   WiFiClient client = server->available();
 
@@ -48,7 +48,6 @@ void WebServer::update()
 
           String location = getUrl(header);
 
-          // std::function<void(WiFiClient)> correctCallback = callbackMap[location];
           if (callbackMap[location])
           {
             callbackMap[location](client);

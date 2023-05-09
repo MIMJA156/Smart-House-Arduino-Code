@@ -17,7 +17,7 @@ public:
   IPAddress getIp();
   String getUrl(String header);
   void begin(const char *ssid, const char *password);
-  void update();
+  void listen();
   void get(String location, void (*callback)(WiFiClient));
 };
 #endif

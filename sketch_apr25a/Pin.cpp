@@ -1,3 +1,4 @@
+#include "esp32-hal-gpio.h"
 #include <Arduino.h>
 #include "Pin.h"
 
@@ -5,6 +6,8 @@ Pin::Pin(int givenPin, int beginningState)
 {
   pin = givenPin;
   state = beginningState;
+
+  pinMode(pin, OUTPUT);
   digitalWrite(pin, state);
 }
 
@@ -21,7 +24,7 @@ void Pin::toggle()
   }
   else
   {
-    state = HIGH;
+    state = LOW;
   }
 
   digitalWrite(pin, state);
@@ -29,12 +32,12 @@ void Pin::toggle()
 
 void Pin::on()
 {
-  state = 0x1;
+  state = HIGH;
   digitalWrite(pin, state);
 }
 
 void Pin::off()
 {
-  state = 0x0;
+  state = LOW;
   digitalWrite(pin, state);
 }
