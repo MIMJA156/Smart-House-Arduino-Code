@@ -1,3 +1,5 @@
+// Created By Miles & Connor
+
 #include "esp32-hal.h"
 #include "WebServer.h"
 #include <utility>
@@ -9,8 +11,12 @@ WebServer::WebServer(uint16_t port)
   server = new WiFiServer(port);
 };
 
-void WebServer::begin(const char *ssid, const char *password)
+void WebServer::begin(char *ssid, char *password)
 {
+  if (password == ""){
+    password = NULL; 
+  }
+  
   WiFi.softAP(ssid, password);
   ip = WiFi.softAPIP();
 

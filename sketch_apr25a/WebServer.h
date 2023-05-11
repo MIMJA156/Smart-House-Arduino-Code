@@ -1,3 +1,5 @@
+// Created By Miles & Connor
+
 #ifndef WebServer_h
 #define WebServer_h
 
@@ -16,7 +18,7 @@ public:
   WebServer(uint16_t port);
   IPAddress getIp();
   String getUrl(String header);
-  void begin(const char *ssid, const char *password);
+  void begin(char *ssid, char *password = NULL);
   void listen();
   void get(String location, void (*callback)(WiFiClient));
 };

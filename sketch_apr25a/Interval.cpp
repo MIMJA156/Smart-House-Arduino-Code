@@ -1,3 +1,5 @@
+// Created By Miles & Connor
+
 #include "Interval.h"
 #include <Arduino.h>
 

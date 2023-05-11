@@ -1,3 +1,5 @@
+// Created By Miles & Connor
+
 #ifndef Interval_h
 #define Interval_h
 
