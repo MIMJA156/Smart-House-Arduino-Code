@@ -3,16 +3,13 @@
 #include <WiFi.h>
 #include "Pin.h"
 
-const char *SSID = "Conner-and-Miles";
+const char *SSID = "Eric-Logan-Keilan";
 const char *PASSWORD = "123456789";
 
 WebServer server(80);
 
-Pin pin26(26, LOW);
-Pin pin27(27, LOW);
-Pin pin25(25, LOW);
-Pin pin33(33, LOW);
-
+Pin pin13(13, LOW);
+Pin pin12(12, LOW);
 
 void setup() {
   Serial.begin(115200);
@@ -21,25 +18,12 @@ void setup() {
     client.println(getHtml());
   });
 
-  server.get("/api/26-toggle", [](WiFiClient client) {
-    pin26.toggle();
-    Serial.println(2);
-    client.println(pin26.getState() + "");
+  server.get("/api/13-toggle", [](WiFiClient client) {
+    pin13.toggle();
   });
 
-  server.get("/api/27-toggle", [](WiFiClient client) {
-    pin27.toggle();
-    client.println(pin27.getState() + "");
-  });
-
-  server.get("/api/25-toggle", [](WiFiClient client) {
-    pin25.toggle();
-    client.println(pin25.getState() + "");
-  });
-
-  server.get("/api/33-toggle", [](WiFiClient client) {
-    pin33.toggle();
-    client.println(pin33.getState() + "");
+  server.get("/api/12-toggle", [](WiFiClient client) {
+    pin12.toggle();
   });
 
   server.begin(SSID, PASSWORD);
